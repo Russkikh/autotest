@@ -28,14 +28,15 @@ namespace AutoTest
         public void IsAdded()
         {
             webDriver.Url = "http://the-internet.herokuapp.com/add_remove_elements/";
-
-            for (int i = 0; i < 2; ++i)
+            
+            // Добавляем 2 кнопки "Delete".
+            for (int i = 0; i < 2; ++i) 
             {
                 Thread.Sleep(1000); // Задержка перед повторным нажатием.
-                webDriver.FindElement(By.XPath("/html/body/div[2]/div/div/button")).Click();
+                webDriver.FindElement(By.XPath("//button[contains(text(), \"Add Element\")]")).Click();
             }
-
-            var count = webDriver.FindElements(By.ClassName("added-manually")).Count;
+            // Проверяем сколько было добавлено кнопок.
+            var count = webDriver.FindElements(By.XPath("//button[contains(text(), \"Delete\")]")).Count;
             Assert.IsTrue(count == 2);
         }
 
@@ -43,20 +44,22 @@ namespace AutoTest
         public void IsDeleted()
         {
             webDriver.Url = "http://the-internet.herokuapp.com/add_remove_elements/";
+            
             // Добавляем 2 кнопки "Delete"
             for (int i = 0; i < 2; ++i)
             {
                 Thread.Sleep(1000); // Задержка перед повторным нажатием.
-                webDriver.FindElement(By.XPath("/html/body/div[2]/div/div/button")).Click();
+                webDriver.FindElement(By.XPath("//button[contains(text(), \"Add Element\")]")).Click();
             }
+            
             // Удаляем 2 добавленные кнопки Delete.
             for (int i = 0; i < 2; ++i)
             {
                 Thread.Sleep(1000);
-                webDriver.FindElement(By.XPath("/html/body/div[2]/div/div/div/button")).Click();
+                webDriver.FindElement(By.XPath("//button[contains(text(), \"Delete\")]")).Click();
             }
-
-            var count = webDriver.FindElements(By.ClassName("added-manually")).Count;
+            // Проверяем сколько осталось кнопок.
+            var count = webDriver.FindElements(By.XPath("//button[contains(text(), \"Delete\")]")).Count;
             Assert.IsTrue(count == 0);
         }
 

@@ -20,21 +20,21 @@ namespace AutoTest
             for (int i = 0; i < 2; ++i)
             {
                 Thread.Sleep(1000); // Задержка перед повторным нажатием.
-                webDriver.FindElement(By.XPath("/html/body/div[2]/div/div/button")).Click();
+                webDriver.FindElement(By.XPath("//button[contains(text(), \"Add Element\")]")).Click();
             }
 
             // Подсчёт количества элементов в Классе.
-            var count = webDriver.FindElements(By.ClassName("added-manually")).Count;
+            var count = webDriver.FindElements(By.XPath("//button[contains(text(), \"Delete\")]")).Count;
 
             // Удаляем ВСЕ добавленные кнопки Delete.
             for (int i = 0; i < count; ++i)
             {
                 Thread.Sleep(1000);
-                webDriver.FindElement(By.XPath("/html/body/div[2]/div/div/div/button")).Click();
+                webDriver.FindElement(By.XPath("//button[contains(text(), \"Delete\")]")).Click();
             }
 
             // Повторно проверяем количество элементов в Классе.
-            count = webDriver.FindElements(By.ClassName("added-manually")).Count;
+            count = webDriver.FindElements(By.XPath("//button[contains(text(), \"Delete\")]")).Count;
 
             Thread.Sleep(1000);
 
